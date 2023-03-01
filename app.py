@@ -19,8 +19,6 @@ node_identifier = str(uuid4())
 blockchain = bc.Blockchain()
 
 # return the entire blockchain
-
-
 @app.route('/blockchain', methods=['GET'])
 def full_chain():
     response = {
