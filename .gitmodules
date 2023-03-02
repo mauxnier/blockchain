@@ -1,0 +1,3 @@
+[submodule "simple-merkle-tree-implementation"]
+	path = simple-merkle-tree-implementation
+	url = https://github.com/jeremythen/simple-merkle-tree-implementation.git
