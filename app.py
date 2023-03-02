@@ -19,6 +19,8 @@ node_identifier = str(uuid4())
 blockchain = bc.Blockchain()
 
 # return the entire blockchain
+
+
 @app.route('/blockchain', methods=['GET'])
 def full_chain():
     response = {
@@ -74,5 +76,33 @@ def new_transaction():
     return (jsonify(response), 201)
 
 
+@app.route('/nodes/add_nodes', methods=['POST'])
+def add_node():
+    # get the value passed in from the client
+    values = request.get_json()
+
+    # check that the required fields are in the POST'ed data
+    required_fields = ['node']
+    if not all(k in values for k in required_fields):
+        return ('Missing fields', 400)
+
+    # add the node
+    blockchain.add_node(
+        values['node']
+    )
+
+    response = {'message': f'Node added'}
+    return (jsonify(response), 201)
+
+
+@app.route('/nodes/sync', methods=['GET'])
+def sync():
+    isSynced = blockchain.update_blockchain()
+    if isSynced:
+        response = {'message': f'Blockchain synced'}
+    else:
+        response = {'message': f'Blockchain not synced'}
+    return (jsonify(response), 201)
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(sys.argv[1]))
