@@ -33,3 +33,5 @@ def home():
 @app.route('/api/v1/resources/employees/all', methods=['GET'])
 def api_all():
     return jsonify(employees)
+
+app.run()
